@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#040008"
+    },
+    "android": {
+      "package": "com.anonymous.withsqlite"
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.withsqlite"
+    }
+  },
+  "plugins": ["expo-sqlite"]
+}

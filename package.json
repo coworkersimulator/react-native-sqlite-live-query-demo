@@ -1,0 +1,38 @@
+{
+  "name": "react-native-sqlite-live-queries-demo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "drizzle:pull": "rm -f tmp/tmp.db* && tsx utils/create-tmp-db.ts && drizzle-kit pull && rm -f tmp/tmp.db*"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2",
+    "expo": "^54.0.1",
+    "expo-asset": "^55.0.12",
+    "expo-file-system": "~19.0.21",
+    "expo-splash-screen": "^55.0.15",
+    "expo-sqlite": "~16.0.8",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-confetti-explosion": "^0.1.0",
+    "react-native-get-random-values": "^2.0.0",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-svg": "15.12.1",
+    "react-native-worklets": "0.5.1",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@libsql/client": "^0.17.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "~19.1.10",
+    "drizzle-kit": "^0.31.10",
+    "react-dom": "19.1.0",
+    "react-native-web": "^0.21.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.2"
+  }
+}
