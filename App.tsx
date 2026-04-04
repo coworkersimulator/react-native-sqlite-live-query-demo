@@ -77,7 +77,6 @@ function Main() {
 
   useEffect(() => {
     if (clickCounts) {
-      // setReady(true);
       SplashScreen.hideAsync();
     }
   }, [clickCounts]);
