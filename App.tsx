@@ -1,5 +1,5 @@
 import { eq, sql } from "drizzle-orm";
-import { drizzle, useLiveQuery } from "drizzle-orm/expo-sqlite";
+import { drizzle } from "drizzle-orm/expo-sqlite";
 import { Asset } from "expo-asset";
 import { File } from "expo-file-system";
 import {
@@ -55,15 +55,22 @@ export default function App() {
 }
 
 function Main() {
-  const [tick, setTick] = useState(0);
+  const db = useDrizzle();
+
   const [confettis, setConfettis] = useState<{ key: number; emoji: string }[]>(
     [],
   );
+  const removeConfetti = (key: number) => {
+    setConfettis((c) => c.filter((c) => c.key !== key));
+  };
 
-  const db = useDrizzle();
+  const [tick, setTick] = useState(0);
+  const [clickCounts, setClickCounts] = useState<
+    { id: string; count: number }[]
+  >([]);
 
-  const { data: clickCounts } = useLiveQuery(
-    db
+  useEffect(() => {
+    const cs = db
       .select({
         id: fruit.id,
         count: sql<number>`cast(count(${click.id}) as int)`,
@@ -71,12 +78,13 @@ function Main() {
       .from(fruit)
       .leftJoin(click, eq(fruit.id, click.on))
       .groupBy(fruit.id)
-      .orderBy(fruit.id),
-    [tick],
-  );
+      .orderBy(fruit.id)
+      .execute();
+    cs.then((cs) => setClickCounts(cs));
+  }, [tick]);
 
   useEffect(() => {
-    if (clickCounts) {
+    if (clickCounts.length) {
       SplashScreen.hideAsync();
     }
   }, [clickCounts]);
@@ -86,18 +94,12 @@ function Main() {
       id: uuidv4(),
       on,
     });
-    // requestAnimationFrame(() => setConfettiEmoji(on));
-    // setTimeout(() => setConfettiEmoji(on), 50);
     setTick((t) => t + 1);
     setConfettis((c) => [...c, { key: tick, emoji: on }]);
   };
 
-  const removeConfetti = (key: number) => {
-    setConfettis((c) => c.filter((c) => c.key !== key));
-  };
-
   const deleteClicks = async () => {
-    await db.delete(click).where(sql`1=1`);
+    await db.delete(click);
     setTick((t) => t + 1);
   };
 
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   itemCount: {
     fontSize: 24,
     color: "#fff",
-    width: 30, // wide enough for 4 digits
+    width: 32,
     textAlign: "right",
   },
   deleteButton: {

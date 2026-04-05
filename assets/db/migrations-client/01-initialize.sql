@@ -1,8 +1,6 @@
 PRAGMA journal_mode = 'wal';
 PRAGMA auto_vacuum = INCREMENTAL;
 
-CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY NOT NULL, done INT, value TEXT);
-
 CREATE TABLE IF NOT EXISTS fruit (
   id TEXT PRIMARY KEY,
   at TEXT NOT NULL DEFAULT (datetime('now'))

@@ -9,7 +9,7 @@ import { mkdir } from "node:fs/promises";
   );
   await mkdir("tmp", { recursive: true });
   const client = createClient({
-    url: "file:tmp/tmp.db", // Use "file:path/to/your/database.db"
+    url: "file:tmp/tmp.db",
   });
   await client.executeMultiple(migrations);
   client.close();
