@@ -1,6 +1,6 @@
 # SQLite as State: A React Native Demo
 
-[YouTube Demo]()
+[YouTube Demo](https://www.youtube.com/watch?v=LceysSOyISw)
 
 This React Native application demonstrates using SQLite with live queries to reduce React state. Rather than managing complex client-side state, the app uses the database as the single source of truth — queries re-run reactively whenever data changes.
 
